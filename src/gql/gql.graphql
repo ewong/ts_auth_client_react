@@ -1,0 +1,23 @@
+mutation Register($email: String!, $password: String!, $confirmation: String!) { 
+  register(email: $email, password: $password, confirmation: $confirmation) {
+    ukey
+    tmp_confirm_token
+  }
+}
+
+mutation Confirm($email: String!) { 
+  confirm(email: $email)
+}
+
+mutation Login($email: String!, $password: String!) { 
+  login(email: $email, password: $password) {
+    ukey
+    access_token
+	}
+}
+
+query Profile { 
+  profile {
+	  email
+	}
+}
