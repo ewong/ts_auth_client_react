@@ -12,7 +12,9 @@
     "@types/node": "^12.12.47",
     "@types/react": "^16.9.36",
     "@types/react-dom": "^16.9.8",
+    "apollo-link-token-refresh": "^0.3.1",
     "graphql": "^15.1.0",
+    "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
@@ -47,6 +49,7 @@
     "@graphql-codegen/typescript-operations": "^1.15.3",
     "@graphql-codegen/typescript-react-apollo": "^1.15.3",
     "@types/graphql": "^14.5.0",
+    "@types/jwt-decode": "^2.2.1",
     "@types/react-router-dom": "^5.1.5"
   }
 }
