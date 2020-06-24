@@ -7,6 +7,9 @@ import { Register } from './register';
 import { Profile } from './profile';
 import { NotFound } from './not_found';
 import { Confirm } from './confirm';
+import { ResendConfirm } from './resend_confirm';
+import { ForgotPassword } from './forgot_password';
+import { ResetPassword } from './reset_password';
 
 let initialized = false;
 export const Main: React.FC = () => {
@@ -54,6 +57,9 @@ export const Main: React.FC = () => {
         <Route exact path='/confirm/:token'>{appState.loggedIn ? <Redirect to='/' /> : <Confirm />}</Route>
         <Route exact path='/login'>{appState.loggedIn ? <Redirect to='/' /> : <Login />}</Route>
         <Route exact path='/profile'>{appState.loggedIn ? <Profile /> : <Redirect to='/login' />}</Route>
+        <Route exact path='/resend-confirm'>{appState.loggedIn ? <Redirect to='/' /> : <ResendConfirm />}</Route>
+        <Route exact path='/forgot-password'>{appState.loggedIn ? <Redirect to='/' /> : <ForgotPassword />}</Route>
+        <Route exact path='/reset-password/:token'>{appState.loggedIn ? <Redirect to='/' /> : <ResetPassword />}</Route>
         <Route component={NotFound} />
       </Switch>
     </div>

@@ -25,11 +25,12 @@ export const Confirm: React.FC = () => {
           setShow(false);
           appSetAuthToken(token);
           const { data } = await confirm({ variables: { email } });
-          appClearAuthToken();
           if (data === undefined || data?.confirm === undefined || !data.confirm)
             throw new Error('Not authorized');
+          appClearAuthToken();
           history.replace('/login');
         } catch (err) {
+          appClearAuthToken();
           setShow(true);
         }
       }}>

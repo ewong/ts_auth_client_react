@@ -5,6 +5,12 @@ mutation Register($email: String!, $password: String!, $confirmation: String!) {
   }
 }
 
+mutation ResendConfirmation($email: String!) { 
+  resendConfirmation(email: $email) {
+    tmp_email_token
+  }
+}
+
 mutation Confirm($email: String!) { 
   confirm(email: $email)
 }
@@ -14,6 +20,16 @@ mutation Login($email: String!, $password: String!) {
     ukey
     access_token
 	}
+}
+
+mutation ForgotPassword($email: String!) { 
+  forgotPassword(email: $email) {
+    tmp_email_token
+	}
+}
+
+mutation ResetPassword($password: String!, $confirmation: String!) { 
+  resetPassword(password: $password, confirmation: $confirmation)
 }
 
 query Profile { 
