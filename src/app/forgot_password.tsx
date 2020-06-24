@@ -30,7 +30,7 @@ export const ForgotPassword: React.FC = () => {
           <input value={email} placeholder='Email'
             onChange={e => { setEmail(e.target.value); }} />
         </div>
-        <button type='submit'>Reset password</button>
+        <button type='submit'>Send password reset email</button>
       </form>
     </div>
   );

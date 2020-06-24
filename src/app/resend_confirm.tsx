@@ -30,7 +30,7 @@ export const ResendConfirm: React.FC = () => {
           <input value={email} placeholder='Email'
             onChange={e => { setEmail(e.target.value); }} />
         </div>
-        <button type='submit'>Resend confirmation</button>
+        <button type='submit'>Send confirmation email</button>
       </form>
     </div>
   );

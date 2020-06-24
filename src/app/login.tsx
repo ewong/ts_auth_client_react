@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useLoginMutation } from '../gql/generated/graphql';
 import { AppStateContext } from './provider';
 
@@ -39,6 +39,8 @@ export const Login: React.FC = () => {
         </div>
         <button type='submit'>Login</button>
       </form>
+      <div><Link to='/forgot-password'>Forgot your password?</Link></div>
+      <div><Link to='/resend-confirm'>Resend confirmation?</Link></div>
     </div>
   );
 };
