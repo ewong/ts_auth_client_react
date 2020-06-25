@@ -7,6 +7,16 @@ export const ResendConfirm: React.FC = () => {
   const { gqlError } = useContext(AppStateContext);
   const [email, setEmail] = useState('');
   const [show, setShow] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  if (success) {
+    return (
+      <div>
+        <div>Resend confirmation page</div>
+        <div>A confirmation link has been sent to your email.</div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -17,9 +27,9 @@ export const ResendConfirm: React.FC = () => {
         try {
           setShow(false);
           const { data } = await resendConfirmation({ variables: { email } });
-          if (data === undefined || data?.resendConfirmation === undefined || data?.resendConfirmation?.tmp_email_token === undefined)
+          if (data === undefined || data?.resendConfirmation === undefined || !data?.resendConfirmation)
             throw new Error('Invalid data');
-          console.log('resend confirmation successful');
+          setSuccess(true);
         } catch (err) {
           setShow(true);
         }

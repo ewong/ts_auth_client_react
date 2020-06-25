@@ -7,6 +7,16 @@ export const ForgotPassword: React.FC = () => {
   const { gqlError } = useContext(AppStateContext);
   const [email, setEmail] = useState('');
   const [show, setShow] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  if (success) {
+    return (
+      <div>
+        <div>Forgot password page</div>
+        <div>A reset password link has been sent to your email.</div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -17,9 +27,9 @@ export const ForgotPassword: React.FC = () => {
         try {
           setShow(false);
           const { data } = await forgotPassword({ variables: { email } });
-          if (data === undefined || data?.forgotPassword === undefined || data?.forgotPassword?.tmp_email_token === undefined)
+          if (data === undefined || data?.forgotPassword === undefined || !data?.forgotPassword)
             throw new Error('Invalid data');
-          console.log('forgot password successful');
+          setSuccess(true);
         } catch (err) {
           setShow(true);
         }

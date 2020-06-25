@@ -19,12 +19,12 @@ export type Query = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  register?: Maybe<RegisteredUser>;
+  register?: Maybe<Scalars['Boolean']>;
   login?: Maybe<AccessToken>;
-  resendConfirmation?: Maybe<TmpEmailResponse>;
+  resendConfirmation?: Maybe<Scalars['Boolean']>;
   confirm?: Maybe<Scalars['Boolean']>;
   refresh?: Maybe<AccessToken>;
-  forgotPassword?: Maybe<TmpEmailResponse>;
+  forgotPassword?: Maybe<Scalars['Boolean']>;
   resetPassword?: Maybe<Scalars['Boolean']>;
   logout?: Maybe<Scalars['Boolean']>;
 };
@@ -69,21 +69,10 @@ export type Profile = {
   email?: Maybe<Scalars['String']>;
 };
 
-export type RegisteredUser = {
-  __typename?: 'RegisteredUser';
-  ukey?: Maybe<Scalars['ID']>;
-  tmp_confirm_token?: Maybe<Scalars['ID']>;
-};
-
 export type AccessToken = {
   __typename?: 'AccessToken';
   ukey?: Maybe<Scalars['ID']>;
   access_token?: Maybe<Scalars['ID']>;
-};
-
-export type TmpEmailResponse = {
-  __typename?: 'TmpEmailResponse';
-  tmp_email_token?: Maybe<Scalars['ID']>;
 };
 
 export type RegisterMutationVariables = Exact<{
@@ -95,10 +84,7 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = (
   { __typename?: 'Mutation' }
-  & { register?: Maybe<(
-    { __typename?: 'RegisteredUser' }
-    & Pick<RegisteredUser, 'ukey' | 'tmp_confirm_token'>
-  )> }
+  & Pick<Mutation, 'register'>
 );
 
 export type ResendConfirmationMutationVariables = Exact<{
@@ -108,10 +94,7 @@ export type ResendConfirmationMutationVariables = Exact<{
 
 export type ResendConfirmationMutation = (
   { __typename?: 'Mutation' }
-  & { resendConfirmation?: Maybe<(
-    { __typename?: 'TmpEmailResponse' }
-    & Pick<TmpEmailResponse, 'tmp_email_token'>
-  )> }
+  & Pick<Mutation, 'resendConfirmation'>
 );
 
 export type ConfirmMutationVariables = Exact<{
@@ -145,10 +128,7 @@ export type ForgotPasswordMutationVariables = Exact<{
 
 export type ForgotPasswordMutation = (
   { __typename?: 'Mutation' }
-  & { forgotPassword?: Maybe<(
-    { __typename?: 'TmpEmailResponse' }
-    & Pick<TmpEmailResponse, 'tmp_email_token'>
-  )> }
+  & Pick<Mutation, 'forgotPassword'>
 );
 
 export type ResetPasswordMutationVariables = Exact<{
@@ -184,10 +164,7 @@ export type ProfileQuery = (
 
 export const RegisterDocument = gql`
     mutation Register($email: String!, $password: String!, $confirmation: String!) {
-  register(email: $email, password: $password, confirmation: $confirmation) {
-    ukey
-    tmp_confirm_token
-  }
+  register(email: $email, password: $password, confirmation: $confirmation)
 }
     `;
 export type RegisterMutationFn = ApolloReactCommon.MutationFunction<RegisterMutation, RegisterMutationVariables>;
@@ -219,9 +196,7 @@ export type RegisterMutationResult = ApolloReactCommon.MutationResult<RegisterMu
 export type RegisterMutationOptions = ApolloReactCommon.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const ResendConfirmationDocument = gql`
     mutation ResendConfirmation($email: String!) {
-  resendConfirmation(email: $email) {
-    tmp_email_token
-  }
+  resendConfirmation(email: $email)
 }
     `;
 export type ResendConfirmationMutationFn = ApolloReactCommon.MutationFunction<ResendConfirmationMutation, ResendConfirmationMutationVariables>;
@@ -315,9 +290,7 @@ export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const ForgotPasswordDocument = gql`
     mutation ForgotPassword($email: String!) {
-  forgotPassword(email: $email) {
-    tmp_email_token
-  }
+  forgotPassword(email: $email)
 }
     `;
 export type ForgotPasswordMutationFn = ApolloReactCommon.MutationFunction<ForgotPasswordMutation, ForgotPasswordMutationVariables>;

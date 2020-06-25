@@ -1,14 +1,9 @@
 mutation Register($email: String!, $password: String!, $confirmation: String!) { 
-  register(email: $email, password: $password, confirmation: $confirmation) {
-    ukey
-    tmp_confirm_token
-  }
+  register(email: $email, password: $password, confirmation: $confirmation)
 }
 
 mutation ResendConfirmation($email: String!) { 
-  resendConfirmation(email: $email) {
-    tmp_email_token
-  }
+  resendConfirmation(email: $email)
 }
 
 mutation Confirm($email: String!) { 
@@ -23,9 +18,7 @@ mutation Login($email: String!, $password: String!) {
 }
 
 mutation ForgotPassword($email: String!) { 
-  forgotPassword(email: $email) {
-    tmp_email_token
-	}
+  forgotPassword(email: $email)
 }
 
 mutation ResetPassword($password: String!, $confirmation: String!) { 

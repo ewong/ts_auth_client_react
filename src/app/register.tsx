@@ -10,6 +10,16 @@ export const Register: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
   const [show, setShow] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  if (success) {
+    return (
+      <div>
+        <div>Register page</div>
+        <div>Registration successful! Please check your email for your email confirmation link.</div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -20,9 +30,9 @@ export const Register: React.FC = () => {
         try {
           setShow(false);
           const { data } = await register({ variables: { email, password, confirmation } });
-          if (data === undefined || data?.register === undefined)
+          if (data === undefined || data?.register === undefined || !data?.register)
             throw new Error('Invalid credentials');
-          console.log('registration successful');
+          setSuccess(true);
         } catch (err) {
           setShow(true);
         }
