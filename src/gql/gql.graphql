@@ -32,6 +32,10 @@ mutation ResetPassword($password: String!, $confirmation: String!) {
   resetPassword(password: $password, confirmation: $confirmation)
 }
 
+mutation Logout { 
+  logout
+}
+
 query Profile { 
   profile {
 	  email

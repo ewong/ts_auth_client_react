@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { AppStateContext, fetchAccessToken } from './provider';
+import { useLogoutMutation } from '../gql/generated/graphql';
 import { Home } from './home';
 import { Login } from './login';
 import { Register } from './register';
@@ -14,7 +15,9 @@ import { ResetPassword } from './reset_password';
 let initialized = false;
 export const Main: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const { appState, appSetLogin, appSetLogout } = useContext(AppStateContext);
+  const [show, setShow] = useState(false);
+  const { appState, appSetLogin, appSetLogout, gqlError } = useContext(AppStateContext);
+  const [logout] = useLogoutMutation();
 
   useEffect(() => {
     if (initialized) return;
@@ -43,6 +46,18 @@ export const Main: React.FC = () => {
             <div>
               <div><Link to='/'>Home</Link></div>
               <div><Link to='/profile'>Profile</Link></div>
+              <div><Link to='#' onClick={async (event) => {
+                try {
+                  setShow(false);
+                  const data = await logout();
+                  if (data === undefined || !data)
+                    throw new Error('Server error');
+                  appSetLogout();
+                } catch (e) {
+                  setShow(true);
+                }
+              }}>Logout</Link></div>
+              {show ? <div>{gqlError.msg}</div> : undefined}
             </div> :
             <div>
               <div><Link to='/'>Home</Link></div>
