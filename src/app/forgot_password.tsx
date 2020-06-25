@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useForgotPasswordMutation } from '../gql/generated/graphql';
 import { AppStateContext } from './provider';
 
 export const ForgotPassword: React.FC = () => {
-  const history = useHistory();
   const [forgotPassword] = useForgotPasswordMutation();
   const { gqlError } = useContext(AppStateContext);
   const [email, setEmail] = useState('');
@@ -21,7 +19,7 @@ export const ForgotPassword: React.FC = () => {
           const { data } = await forgotPassword({ variables: { email } });
           if (data === undefined || data?.forgotPassword === undefined || data?.forgotPassword?.tmp_email_token === undefined)
             throw new Error('Invalid data');
-          history.replace(`/reset-password/${data?.forgotPassword?.tmp_email_token}`);
+          console.log('forgot password successful');
         } catch (err) {
           setShow(true);
         }

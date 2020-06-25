@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useResendConfirmationMutation } from '../gql/generated/graphql';
 import { AppStateContext } from './provider';
 
 export const ResendConfirm: React.FC = () => {
-  const history = useHistory();
   const [resendConfirmation] = useResendConfirmationMutation();
   const { gqlError } = useContext(AppStateContext);
   const [email, setEmail] = useState('');
@@ -21,7 +19,7 @@ export const ResendConfirm: React.FC = () => {
           const { data } = await resendConfirmation({ variables: { email } });
           if (data === undefined || data?.resendConfirmation === undefined || data?.resendConfirmation?.tmp_email_token === undefined)
             throw new Error('Invalid data');
-          history.replace(`/confirm/${data?.resendConfirmation?.tmp_email_token}`);
+          console.log('resend confirmation successful');
         } catch (err) {
           setShow(true);
         }
